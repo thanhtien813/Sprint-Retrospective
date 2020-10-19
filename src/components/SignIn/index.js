@@ -1,5 +1,7 @@
 import React from 'react';
-import { Container, TextField, Typography, Button, Grid, Link, Box, makeStyles } from '@material-ui/core';
+import { Container, TextField, Typography, Button, Grid, Link, Box, makeStyles, Fab } from '@material-ui/core';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import { FcGoogle } from 'react-icons/fc';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -58,6 +60,27 @@ function SignIn() {
                             <Link href="#" variant="body2">
                                 Don't have an account ? Sign up
                             </Link>
+                        </Grid>
+                    </Grid>
+                    <Box mt={1} />
+                    <Grid container justify="center">
+                        <Grid item>
+                            <Typography variant="body2" color="textSecondary">
+                                or you can sign in with
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                    <Box mt={2} />
+                    <Grid container spacing={5} direction="row" justify="center" alignItems="center">
+                        <Grid item>
+                            <Fab aria-label="add" size="small">
+                                <FcGoogle size="small"/>
+                            </Fab>
+                        </Grid>
+                        <Grid item>
+                            <Fab color="primary" aria-label="add" size="small">
+                                <FacebookIcon />
+                            </Fab>
                         </Grid>
                     </Grid>
                 </form>
