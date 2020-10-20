@@ -27,22 +27,23 @@ function SignUp() {
                 </Typography>
                 <form className={classes.form} noValidate>
                     <TextField 
-                        id="firstName"
-                        label="First Name"
-                        name="firstName"
+                        id="name"
+                        label="Name"
+                        name="name"
                         variant="outlined"
                         margin="normal"
                         fullWidth
                         required
                     />
                     <TextField 
-                        id="lastName"
-                        label="Last Name"
-                        name="lastName"
+                        id="email"
+                        label="Email"
+                        name="email"
                         variant="outlined"
                         margin="normal"
                         fullWidth
                         required
+                        type="email"
                     />
                     <TextField 
                         id="username"
