@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dialog, DialogContent, makeStyles, TextField, Button, Typography } from '@material-ui/core';
+import { makeStyles, Typography, TextField, Button, Dialog, DialogContent } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -13,46 +13,43 @@ const useStyles = makeStyles((theme) => ({
     },
     submit: {
         margin: theme.spacing(3, 0, 2),
-    },
+    }
 }));
 
-function Profile({open, handleClose}) {
+function CreateBoard({open, handleClose}) {
     const classes = useStyles();
+
     return (
-        <Dialog open={open} onClose={handleClose} aria-labelledby="profile">
+        <Dialog open={open} onClose={handleClose} aria-labelledby="create-board">
             <DialogContent>
                 <div className={classes.paper}>
                     <Typography component="h1" variant="h5">
-                        User Profile
+                        Create Board
                     </Typography>
                     <form className={classes.form} noValidate>
                         <TextField 
                             id="name"
                             name="name"
                             label="Name"
-                            fullWidth
-                            defaultValue="Nguyen Thanh Tien"
                             margin="normal"
-                            variant="outlined"
+                            fullWidth
+                            required
                         />
                         <TextField 
-                            id="email"
-                            name="email"
-                            label="Email"
-                            fullWidth
-                            defaultValue="example@gmail.com"
-                            type="email"
+                            id="description"
+                            name="description"
+                            label="Description"
                             margin="normal"
-                            variant="outlined"
+                            fullWidth
                         />
-                        <Button 
+                        <Button
                             type="submit"
                             variant="contained"
                             color="primary"
                             fullWidth
                             className={classes.submit}
                         >
-                            Update
+                            Create
                         </Button>
                     </form>
                 </div>
@@ -61,4 +58,4 @@ function Profile({open, handleClose}) {
     )
 }
 
-export default Profile;
+export default CreateBoard;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dialog, DialogContent, makeStyles, TextField, Button, Typography } from '@material-ui/core';
+import { Dialog, DialogContent, Typography, TextField, Button, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -13,46 +13,51 @@ const useStyles = makeStyles((theme) => ({
     },
     submit: {
         margin: theme.spacing(3, 0, 2),
-    },
+    }
 }));
 
-function Profile({open, handleClose}) {
+function ChangePassword({open, handleClose}) {
     const classes = useStyles();
     return (
-        <Dialog open={open} onClose={handleClose} aria-labelledby="profile">
+        <Dialog open={open} onClose={handleClose} aria-labelledby="change-password">
             <DialogContent>
                 <div className={classes.paper}>
                     <Typography component="h1" variant="h5">
-                        User Profile
+                        Change Password
                     </Typography>
                     <form className={classes.form} noValidate>
                         <TextField 
-                            id="name"
-                            name="name"
-                            label="Name"
-                            fullWidth
-                            defaultValue="Nguyen Thanh Tien"
+                            id="currentPass"
+                            name="currentPass"
+                            label="Current Password"
                             margin="normal"
-                            variant="outlined"
+                            fullWidth
+                            required
                         />
                         <TextField 
-                            id="email"
-                            name="email"
-                            label="Email"
-                            fullWidth
-                            defaultValue="example@gmail.com"
-                            type="email"
+                            id="newPass"
+                            name="newPass"
+                            label="New Password"
                             margin="normal"
-                            variant="outlined"
+                            fullWidth
+                            required
                         />
-                        <Button 
+                        <TextField 
+                            id="confirm"
+                            name="confirm"
+                            label="Confirm Password"
+                            margin="normal"
+                            fullWidth
+                            required
+                        />
+                        <Button
                             type="submit"
                             variant="contained"
                             color="primary"
                             fullWidth
                             className={classes.submit}
                         >
-                            Update
+                            Change
                         </Button>
                     </form>
                 </div>
@@ -61,4 +66,4 @@ function Profile({open, handleClose}) {
     )
 }
 
-export default Profile;
+export default ChangePassword;

@@ -7,6 +7,8 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(1),
         width: "15%",
         height: 122,
+        backgroundColor: 'transparent',
+        boxShadow: 'none',
     },
     root: {
         height: 122,
@@ -18,11 +20,11 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function NewBoard() {
+function NewBoardButton({onClick}) {
     const classes = useStyles();
     return (
-        <Box border={2} borderRadius={5} borderColor="primary.main" className={classes.card}>
-            <Card>
+        <Box border={2} borderRadius={5} borderColor="text.secondary" className={classes.card}>
+            <Card style={{backgroundColor: "#f3f3f3"}} onClick={onClick}>
                 <CardActionArea className={classes.root}>
                     <CardContent>
                         <Box className={classes.box}>
@@ -41,4 +43,4 @@ function NewBoard() {
     )
 }
 
-export default NewBoard;
+export default NewBoardButton;

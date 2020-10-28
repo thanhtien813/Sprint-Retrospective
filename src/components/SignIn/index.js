@@ -43,6 +43,7 @@ function SignIn() {
                         label="Password"
                         variant="outlined"
                         margin="normal"
+                        type="password"
                         fullWidth
                         required
                     />

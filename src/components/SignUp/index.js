@@ -60,6 +60,7 @@ function SignUp() {
                         name="password"
                         variant="outlined"
                         margin="normal"
+                        type="password"
                         fullWidth
                         required
                     />
@@ -69,6 +70,7 @@ function SignUp() {
                         name="confirmPassword"
                         variant="outlined"
                         margin="normal"
+                        type="password"
                         fullWidth
                         required
                     />

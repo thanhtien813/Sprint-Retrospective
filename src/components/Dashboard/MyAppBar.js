@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles, AppBar, Toolbar, Link, IconButton, Menu, MenuItem, ListItemIcon, Typography } from '@material-ui/core';
-import { AccountCircle, PersonOutline, VpnKey, ExitToApp } from '@material-ui/icons';
+import { AccountCircle, PersonOutline, ExitToApp, VpnKey } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
     toolbar: {
@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function MyAppBar() {
+function MyAppBar({profileClick, changePass}) {
     const [ auth, setAuth ] = useState(true);
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -30,7 +30,7 @@ function MyAppBar() {
             <Toolbar className={classes.toolbar}>
                 <Link 
                     href="#" 
-                    variant="body2" 
+                    variant="h6" 
                     color="inherit" 
                     underline="none"
                 >
@@ -47,7 +47,7 @@ function MyAppBar() {
                             aria-haspopup="true"
                             onClick={handleMenu}
                         >
-                            <AccountCircle />
+                            <AccountCircle fontSize="large"/>
                         </IconButton>
                         <Menu
                             id="menu-appbar"
@@ -56,13 +56,13 @@ function MyAppBar() {
                             open={open}
                             onClose={handleClose}
                         >
-                            <MenuItem onClick={handleClose}>
+                            <MenuItem onClick={profileClick}>
                                 <ListItemIcon>
                                     <PersonOutline fontSize="small"/>
                                 </ListItemIcon>
                                 <Typography variant="inherit">Profile</Typography>
                             </MenuItem>
-                            <MenuItem onClick={handleClose}>
+                            <MenuItem onClick={changePass}>
                                 <ListItemIcon>
                                     <VpnKey fontSize="small"/>
                                 </ListItemIcon>

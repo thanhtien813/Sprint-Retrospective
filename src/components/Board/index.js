@@ -1,6 +1,6 @@
 import React from 'react';
-import { CardActionArea, CardContent, makeStyles, Card, Typography, CardActions, Button, Box } from '@material-ui/core';
-import { Link } from '@material-ui/icons';
+import { CardActionArea, CardContent, makeStyles, Card, Typography, CardActions, Button } from '@material-ui/core';
+import { Link, Delete } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
     card: {
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 function Board({boardInfo}) {
     const classes = useStyles();
     return (
-        <Card className={classes.card}>
+        <Card className={classes.card} variant="outlined">
             <CardActionArea className={classes.root}>
                 <CardContent>
                     <Typography gutterBottom variant="body1" component="h2">
@@ -33,17 +33,16 @@ function Board({boardInfo}) {
                     <Typography gutterBottom variant="body2" color="textSecondary" component="p">
                         {boardInfo.createdTime}
                     </Typography>
-                    <div className={classes.box}>
-                        <Box bgcolor="success.main" p={2} margin={1}/>
-                        <Box bgcolor="secondary.main" p={2} margin={1}/>
-                        <Box bgcolor="primary.main" p={2} margin={1}/>
-                    </div>
                 </CardContent>
             </CardActionArea>
             <CardActions>
                 <Button size="small" color="primary" fullWidth>
                     <Link />
                     &nbsp;URL
+                </Button>
+                <Button size="small" color="primary" fullWidth>
+                    <Delete />
+                    &nbsp;DELETE
                 </Button>
             </CardActions>
         </Card>
