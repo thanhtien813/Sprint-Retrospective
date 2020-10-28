@@ -18,11 +18,11 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function Board({boardInfo}) {
+function Board({boardInfo, onClick}) {
     const classes = useStyles();
     return (
         <Card className={classes.card} variant="outlined">
-            <CardActionArea className={classes.root}>
+            <CardActionArea className={classes.root} onClick={onClick}>
                 <CardContent>
                     <Typography gutterBottom variant="body1" component="h2">
                         {boardInfo.name}

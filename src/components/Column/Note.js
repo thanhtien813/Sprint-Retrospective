@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { Card, makeStyles, CardContent, Typography, Box } from '@material-ui/core';
+import React from 'react';
+import { Card, makeStyles, CardContent, Typography, Box, IconButton } from '@material-ui/core';
 import { Edit } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        width: "30%",
+        margin: theme.spacing(1, 0, 1, 0),
     },
     cardContent: {
         display: 'flex',
@@ -23,18 +23,25 @@ function Note({type, content}) {
     const classes = useStyles();
 
     let color;
+    if (type === 1) {
+        color = 'primary.main';
+    } else if (type === 2) {
+        color = 'secondary.main';
+    } else {
+        color = 'grey.500';
+    }
 
     return (
-        <Box border={1} borderColor="text.secondary" className={classes.card}>
-            <Card variant="outlined" className={classes.root}>
-                <CardContent className={classes.cardContent}>
-                    <Typography variant="body2">
-                        {content}
-                    </Typography>
-                    <IconButton aria-label="edit" size="small">
-                        <Edit fontSize="small"/>
-                    </IconButton>
-                </CardContent>
+        <Box borderLeft={7} borderRadius={3} borderColor={color} className={classes.root} >
+            <Card >
+                    <CardContent className={classes.cardContent}>
+                            <Typography variant="body2">
+                                {content}
+                            </Typography>
+                            <IconButton aria-label="edit" size="small">
+                                <Edit fontSize="small"/>
+                            </IconButton>
+                    </CardContent>
             </Card>
         </Box>
     )

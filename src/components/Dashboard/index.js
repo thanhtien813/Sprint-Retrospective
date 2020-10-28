@@ -6,6 +6,7 @@ import NewBoardButton from './NewBoardButton';
 import CreateBoard from './CreateBoard';
 import Profile from '../Profile';
 import ChangePassword from './ChangePassword';
+import BoardContent from '../BoardContent';
 
 const listBoards = [
     {
@@ -78,6 +79,14 @@ function Dashboard() {
         setChangePass(false);
     };
 
+    const [boardContent, setBoardContent] = useState(false);
+    const openBoardContent = () => {
+        setBoardContent(true);
+    };
+    const closeBoardContent = () => {
+        setBoardContent(false);
+    };
+
     return (
         <div className={classes.root}>
             <MyAppBar profileClick={openProfile} changePass={openChangePass}/>
@@ -89,12 +98,13 @@ function Dashboard() {
             <div className={classes.listBoards}>
                 <NewBoardButton onClick={openCreate}/>
                 {listBoards.map((board) => (
-                    <Board boardInfo={board} />
+                    <Board boardInfo={board} onClick={openBoardContent}/>
                 ))}
             </div>
             <CreateBoard open={createBoard} handleClose={closeCreate}/>
             <Profile open={profile} handleClose={closeProfile}/>
             <ChangePassword open={changePass} handleClose={closeChangePass}/>
+            <BoardContent open={boardContent} handleClose={closeBoardContent}/>
         </div>
     )
 }
