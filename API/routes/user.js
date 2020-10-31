@@ -5,7 +5,6 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 
 const userController = require('../controller/user');
-const userDB = require('../models/user');
 
 // get all users
 router.get('/get-all', async function(req, res, next) {

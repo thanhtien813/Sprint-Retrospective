@@ -5,7 +5,8 @@ mongoose.connect(process.env.URI, {useUnifiedTopology: true, useNewUrlParser: tr
 const boardSchema = new mongoose.Schema({
     title: String,
     description: String,
-    userId: String
+    userId: String,
+    createdTime: Date
 }, {collection: 'board'});
 
 module.exports = mongoose.model('board', boardSchema);

@@ -59,13 +59,14 @@ passport.use(
     new JWTStrategy(
         {
             secretOrKey: 'TOP_SECRET',
-            jwtFromRequest: ExtractJWT.fromUrlQueryParameter('secret_token')
+            jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken()
         },
-        async (token, done) => {
-            try {
-                return done(null, token.user);
-            } catch (e) {
-                done(e);
+        async function (jwt_payload, next) {
+            const user = await userDB.find({_id: jwt_payload.user._id});
+            if (user) {
+                next(null, user);
+            } else {
+                next(null, false);
             }
         }
     )

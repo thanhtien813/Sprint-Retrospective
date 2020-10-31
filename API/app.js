@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var passport = require('passport');
 var cors = require('cors');
+var bodyParser = require('body-parser');
 
 require('./auth/auth');
 
@@ -12,7 +13,7 @@ var indexRouter = require('./routes/index');
 var userRouter = require('./routes/user');
 var boardRouter = require('./routes/board');
 var cardRouter = require('./routes/card');
-var secureRoute = require('./routes/secure-routes');
+var profileRouter = require('./routes/profile');
 
 var app = express();
 
@@ -26,12 +27,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
+app.use(passport.initialize());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 
 app.use('/', indexRouter);
 app.use('/user', userRouter);
-app.use('/board', boardRouter);
-app.use('/card', cardRouter);
-app.use('/profile', passport.authenticate('jwt', { session: false }), secureRoute);
+app.use('/board', passport.authenticate('jwt', { session: false }), boardRouter);
+app.use('/card', passport.authenticate('jwt', { session: false }), cardRouter);
+app.use('/profile', passport.authenticate('jwt', { session: false }), profileRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
