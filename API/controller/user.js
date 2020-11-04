@@ -1,4 +1,5 @@
 const userDB = require('../models/user');
+const bcrypt = require('bcrypt');
 
 module.exports = {
     getAll: async (req, res, next) => {
@@ -14,20 +15,17 @@ module.exports = {
 
     updateProfile: async (req, res, next) => {
         try {
-            const id = req.body.userId;
+            const id = req.user[0]._id;
             if (id === undefined) {
-                res.status.json({
+                res.status(404).json({
                     message: 'User Id is undefined'
                 });
                 return;
             }
 
             const user = await userDB.findById(id);
-            for (member in req.body){
-                if (member != "userId"){
-                    user[member] = req.body[member];
-                }
-            }
+            user.fullName = req.body.fullName;
+            user.email = req.body.email;
 
             await user.save();
             res.status(200).json({

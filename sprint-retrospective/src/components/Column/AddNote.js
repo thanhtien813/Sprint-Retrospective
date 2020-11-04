@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { makeStyles, Typography, TextField, Button, Dialog, DialogContent } from '@material-ui/core';
+import { Dialog, DialogContent, Typography, TextField, Button, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -16,71 +16,62 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function CreateBoard({open, handleClose, history}) {
+function AddNote({open, handleClose, type, boardId, history}) {
     const classes = useStyles();
 
-    const [title, onChangeTitle] = useState('');
-    const [description, onChangeDescription] = useState('');
+    const [content, onChangeContent] = useState('');
 
-    const newBoard = () => {
-        fetch('https://funretro-api813.herokuapp.com/board/create-board', {
+    const newNote = () => {
+        fetch('https://funretro-api813.herokuapp.com/card/add', {
             method: 'POST',
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('token'),
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                title: title,
-                description: description,
+                content: content,
+                type: type,
+                boardId: boardId
             })
         })
         .then(response => response.json())
         .then(
             (data) => {
-                alert('Create board successful');
+                alert('Add Note ' + data.message);
                 history.go(0);
             },
             (error) => {
-                alert('Create board failed');
+                alert(error);
             }
         )
     }
 
     return (
-        <Dialog open={open} onClose={handleClose} aria-labelledby="create-board">
+        <Dialog open={open} onClose={handleClose}>
             <DialogContent>
                 <div className={classes.paper}>
                     <Typography component="h1" variant="h5">
-                        Create Board
+                        Add Note
                     </Typography>
                     <form className={classes.form} noValidate>
                         <TextField 
-                            id="title"
-                            name="title"
-                            label="Title"
+                            id="content"
+                            name="content"
+                            label="Content"
                             margin="normal"
                             fullWidth
                             required
-                            onChange={e => onChangeTitle(e.target.value)}
-                            value={title}
-                        />
-                        <TextField 
-                            id="description"
-                            name="description"
-                            label="Description"
-                            margin="normal"
-                            fullWidth
-                            onChange={e => onChangeDescription(e.target.value)}
-                            value={description}
+                            onChange={e => onChangeContent(e.target.value)}
+                            value={content}
                         />
                         <Button
                             variant="contained"
                             color="primary"
                             fullWidth
                             className={classes.submit}
-                            onClick={() => newBoard()}
+                            onClick={() => newNote()}
                         >
-                            Create
+                            Add
                         </Button>
                     </form>
                 </div>
@@ -89,4 +80,4 @@ function CreateBoard({open, handleClose, history}) {
     )
 }
 
-export default CreateBoard;
+export default AddNote;

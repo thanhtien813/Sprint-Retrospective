@@ -16,7 +16,7 @@ module.exports = {
     // get based on userId
     getListBoard: async (req, res, next) => {
         try {
-            const userId = req.query.userId;
+            const userId = req.user[0]._id;
             if (userId === undefined || userId === null) {
                 res.status(404).json({
                     message: "User Id is undefined"

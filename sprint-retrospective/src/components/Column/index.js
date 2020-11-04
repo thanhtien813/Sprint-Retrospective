@@ -1,25 +1,7 @@
-import React from 'react';
-import { Box, makeStyles, Typography } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Box, makeStyles, Typography, Button } from '@material-ui/core';
 import Note from './Note';
-
-const sample = [
-    {
-        boardId: '123',
-        content: 'This is note1',
-    },
-    {
-        boardId: '123',
-        content: 'This is note2',
-    },
-    {
-        boardId: '123',
-        content: 'This is note3',
-    },
-    {
-        boardId: '123',
-        content: 'This is note4',
-    }
-];
+import AddNote from './AddNote';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -34,10 +16,13 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         marginTop: theme.spacing(1),
+    },
+    addNote: {
+        margin: theme.spacing(1, 0, 1, 0)
     }
 }));
 
-function Column({type}) {
+function Column({type, listNote, boardId, history}) {
     const classes = useStyles();
 
     let color;
@@ -49,6 +34,8 @@ function Column({type}) {
         color = 'grey.500';
     }
 
+    const [open, setOpen] = useState(false);
+
     return (
         <div className={classes.root}>
             <div className={classes.title}>
@@ -57,11 +44,22 @@ function Column({type}) {
                     {type === 1 ? 'Went Well' : (type === 2 ? 'To Improve' : 'Action Items')}
                 </Typography>
             </div>
+            <div>
+                <Button
+                    variant="contained"
+                    fullWidth
+                    className={classes.addNote}
+                    onClick={() => setOpen(true)}
+                >
+                    ADD
+                </Button>
+            </div>
             <div className={classes.content}>
-                {sample.map(item =>
-                    <Note type={type} content={item.content} />
+                {listNote.map(item =>
+                    <Note type={type} card={item} history={history}/>
                 )}
             </div>
+            <AddNote open={open} handleClose={() => setOpen(false)} type={type} boardId={boardId} history={history}/>
         </div>
     )
 }

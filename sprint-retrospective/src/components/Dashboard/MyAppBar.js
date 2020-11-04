@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { makeStyles, AppBar, Toolbar, Link, IconButton, Menu, MenuItem, ListItemIcon, Typography } from '@material-ui/core';
+import { makeStyles, AppBar, Toolbar, IconButton, Menu, MenuItem, ListItemIcon, Typography } from '@material-ui/core';
 import { AccountCircle, PersonOutline, ExitToApp, VpnKey } from '@material-ui/icons';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     toolbar: {
@@ -28,14 +29,12 @@ function MyAppBar({profileClick, changePass}) {
     return (
         <AppBar position="static">
             <Toolbar className={classes.toolbar}>
-                <Link 
-                    href="#" 
+                <Typography 
                     variant="h6" 
                     color="inherit" 
-                    underline="none"
                 >
                     SPRINT RETROSPECTIVE
-                </Link>
+                </Typography>
                 <Typography className={classes.linkDashboard}></Typography>
                 {auth && (
                     <div>
@@ -68,11 +67,13 @@ function MyAppBar({profileClick, changePass}) {
                                 </ListItemIcon>
                                 <Typography variant="inherit">Change Password</Typography>
                             </MenuItem>
-                            <MenuItem onClick={handleClose}>
-                                <ListItemIcon>
-                                    <ExitToApp fontSize="small"/>
-                                </ListItemIcon>
-                                <Typography variant="inherit">Logout</Typography>
+                            <MenuItem onClick={() => localStorage.clear()}>
+                                <Link to="/login" style={{textDecoration: "none"}}>
+                                    <ListItemIcon>
+                                        <ExitToApp fontSize="small"/>
+                                    </ListItemIcon>
+                                    <Typography variant="inherit">Logout</Typography>
+                                </Link>
                             </MenuItem>
                         </Menu>
                     </div>

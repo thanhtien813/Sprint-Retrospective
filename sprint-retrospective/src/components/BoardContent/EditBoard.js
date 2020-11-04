@@ -16,56 +16,71 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function ChangePassword({open, handleClose}) {
+function EditBoard({open, handleClose, content, history}) {
     const classes = useStyles();
 
-    const [current, onChangeCurrent] = useState('');
-    const [newPass, onChangeNewPass] = useState('');
-    const [confirm, onChangeConfirm] = useState('');
+    const [title, onChangeTitle] = useState(content.title);
+    const [description, onChangeDescription] = useState(content.description);
+
+    const change = () => {
+        fetch('https://funretro-api813.herokuapp.com/board/rename-board', {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                boardId: content._id,
+                newTitle: title,
+                newDescription: description
+            })
+        })
+        .then(response => response.json())
+        .then(
+            (data) => {
+                alert(data.message);
+                history.go(0);
+            },
+            (error) => {
+                alert(error);
+            }
+        )
+    }
 
     return (
         <Dialog open={open} onClose={handleClose}>
             <DialogContent>
                 <div className={classes.paper}>
                     <Typography component="h1" variant="h5">
-                        Change Password
+                        Edit Board
                     </Typography>
                     <form className={classes.form} noValidate>
                         <TextField 
-                            id="currentPass"
-                            name="currentPass"
-                            label="Current Password"
+                            id="title"
+                            name="title"
+                            label="Title"
                             margin="normal"
                             fullWidth
                             required
-                            onChange={e => onChangeCurrent(e.target.value)}
-                            value={current}
+                            onChange={e => onChangeTitle(e.target.value)}
+                            value={title}
                         />
                         <TextField 
-                            id="newPass"
-                            name="newPass"
-                            label="New Password"
+                            id="description"
+                            name="description"
+                            label="Description"
                             margin="normal"
                             fullWidth
                             required
-                            onChange={e => onChangeNewPass(e.target.value)}
-                            value={newPass}
-                        />
-                        <TextField 
-                            id="confirm"
-                            name="confirm"
-                            label="Confirm Password"
-                            margin="normal"
-                            fullWidth
-                            required
-                            onChange={e => onChangeConfirm(e.target.value)}
-                            value={confirm}
+                            onChange={e => onChangeDescription(e.target.value)}
+                            value={description}
                         />
                         <Button
                             variant="contained"
                             color="primary"
                             fullWidth
                             className={classes.submit}
+                            onClick={() => change()}
                         >
                             Change
                         </Button>
@@ -76,4 +91,4 @@ function ChangePassword({open, handleClose}) {
     )
 }
 
-export default ChangePassword;
+export default EditBoard;

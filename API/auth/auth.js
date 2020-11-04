@@ -16,6 +16,11 @@ passport.use(
             try {
                 const fullName = req.body.fullName;
                 const email = req.body.email;
+                const exist = await userDB.findOne({username: username});
+                if (exist) {
+                    return done(null, false);
+                }
+
                 const user = await userDB.create({username, password, fullName, email });
 
                 return done(null, user);

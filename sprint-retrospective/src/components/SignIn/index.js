@@ -1,7 +1,8 @@
-import React from 'react';
-import { Container, TextField, Typography, Button, Grid, Link, Box, makeStyles, Fab } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Container, TextField, Typography, Button, Grid, Box, makeStyles, Fab } from '@material-ui/core';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import { FcGoogle } from 'react-icons/fc';
+import { Link, Redirect } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -19,8 +20,30 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function SignIn() {
+function SignIn({history}) {
     const classes = useStyles();
+
+    const [username, onChangeUsername] = useState('');
+    const [password, onChangePassword] = useState('');
+
+    const login = () => {
+        fetch('https://funretro-api813.herokuapp.com/user/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: username, password: password })
+        })  
+        .then(response => response.json())
+        .then(
+            (data) => {
+                localStorage.setItem('token', data.token);
+                history.replace('/');
+            },
+            (error) => {
+                alert('Login failed');
+            }
+        );
+    }
+
     return (
         <Container component="main" maxWidth="xs">
             <div className={classes.paper}>
@@ -36,6 +59,8 @@ function SignIn() {
                         margin="normal"
                         fullWidth
                         required
+                        onChange={e => onChangeUsername(e.target.value)}
+                        value={username}
                     />
                     <TextField 
                         id="password"
@@ -46,19 +71,22 @@ function SignIn() {
                         type="password"
                         fullWidth
                         required
+                        security={true}
+                        onChange={e => onChangePassword(e.target.value)}
+                        value={password}
                     />
                     <Button
-                        type="submit"
                         variant="contained"
                         color="primary"
                         fullWidth
                         className={classes.submit}
+                        onClick={() => login()}
                     >
                         Sign In
                     </Button>
                     <Grid container justify="center">
                         <Grid item>
-                            <Link href="#" variant="body2">
+                            <Link to="/signup" variant="body2">
                                 Don't have an account ? Sign up
                             </Link>
                         </Grid>
